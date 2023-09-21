@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    master:
+      jdbc-url: jdbc:mariadb://mariadbinstance.cso4grbqetkj.ap-northeast-2.rds.amazonaws.com:3306/innodb??useUnicode=true&characterEncoding=utf8
+      driver-class-name: org.mariadb.jdbc.Driver
+      username: mariaAdm
+      password: mariaAdm!977
+    slave:
+      jdbc-url: jdbc:mariadb://mariadbinstance.cso4grbqetkj.ap-northeast-2.rds.amazonaws.com:3306/innodb??useUnicode=true&characterEncoding=utf8
+      driver-class-name: org.mariadb.jdbc.Driver
+      username: mariaAdm
+      password: mariaAdm!977
+spring.main.allow-bean-definition-overriding: true
+
+
+server:
+  port: 8090
