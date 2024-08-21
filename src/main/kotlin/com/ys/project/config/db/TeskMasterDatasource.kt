@@ -1,9 +1,10 @@
-package com.ys.project.config
+package com.ys.project.config.db
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Primary
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 import org.springframework.orm.jpa.JpaTransactionManager
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean
@@ -18,8 +19,9 @@ import javax.sql.DataSource
     entityManagerFactoryRef = TeskMasterDatasource.ENTITY_MANAGER_FACTORY,
     transactionManagerRef = TeskMasterDatasource.TRANSACTION_MANAGER
 )
-class TeskSlaveDatasource {
+class TeskMasterDatasource {
     @Bean(ENTITY_MANAGER_FACTORY)
+    @Primary
     fun entityManagerFactory(): LocalContainerEntityManagerFactoryBean {
         val em = LocalContainerEntityManagerFactoryBean()
         em.dataSource = datasource()
@@ -45,7 +47,7 @@ class TeskSlaveDatasource {
     }
 
     @Bean(DATA_SOURCE)
-    @ConfigurationProperties(prefix = "spring.datasource.slave")
+    @ConfigurationProperties(prefix = "spring.datasource.master")
     fun datasource(): DataSource {
         return DataSourceBuilder.create().build()
     }
@@ -58,7 +60,7 @@ class TeskSlaveDatasource {
     }
 
     companion object {
-        const val DATA_SOURCE_NAME = "Slave"
+        const val DATA_SOURCE_NAME = "Master"
         const val DATA_SOURCE = DATA_SOURCE_NAME + "DataSource" // memberDataSource
         const val TRANSACTION_MANAGER = DATA_SOURCE_NAME + "TransactionManager" // memberTransactionManager
         const val ENTITY_MANAGER_FACTORY = DATA_SOURCE_NAME + "EntityManagerFactory" // memberEntityManagerFactory

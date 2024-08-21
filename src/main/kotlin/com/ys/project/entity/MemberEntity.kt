@@ -2,8 +2,9 @@ package com.ys.project.entity
 
 import jakarta.persistence.*
 
+
 @Entity
-@Table(name = "MEMBER")
+@Table(name = "member")
 class MemberEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
